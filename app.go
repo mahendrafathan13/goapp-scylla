@@ -9,7 +9,7 @@ import (
 
 func main() {
 	dsHosts := []string{"localhost:9042"}
-	cluster := scylla.CreateCluster(gocql.Quorum, "ws_prediction_no_invoice", dsHosts...)
+	cluster := scylla.CreateCluster(gocql.Quorum, "tokopedia_topbot_ds", dsHosts...)
 	session, err := gocql.NewSession(*cluster)
 	if err != nil || session == nil {
 		log.Printf("Failed to start cluster scylla db: %v\n", err)

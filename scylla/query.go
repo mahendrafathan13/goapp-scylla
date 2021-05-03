@@ -8,22 +8,23 @@ import (
 
 func SelectQuery(session *gocql.Session) {
 	log.Printf("Displaying Results:\n")
-	q := session.Query("SELECT * FROM ws_prediction_no_invoice")
-	var firstName, lastName, address, pictureLocation string
+	q := session.Query("SELECT user_id, json_prediction FROM ws_prediction_no_invoice")
+	var userID int64
+	var jsonPrediction string
 	it := q.Iter()
 	defer func() {
 		if err := it.Close(); err != nil {
-			log.Printf("select catalog.mutant %+v\n", err)
+			log.Printf("select ws_prediction_no_invoice: %+v\n", err)
 		}
 	}()
-	for it.Scan(&firstName, &lastName, &address, &pictureLocation) {
-		log.Printf("\t" + firstName + " " + lastName + ", " + address + ", " + pictureLocation)
+	for it.Scan(&userID, &jsonPrediction) {
+		log.Printf("%d, %s\n", userID, jsonPrediction)
 	}
 }
 
 func InsertQuery(session *gocql.Session) {
-	log.Printf("Inserting Mike")
-	if err := session.Query("INSERT INTO ws_prediction_no_invoice (user_id, json_prediction,) VALUES (123, 'coba')").Exec(); err != nil {
-		log.Printf("select catalog.mutant %+v\n", err)
+	log.Printf("Inserting New Data")
+	if err := session.Query("INSERT INTO ws_prediction_no_invoice (user_id, json_prediction) VALUES (124, 'coba')").Exec(); err != nil {
+		log.Printf("insert catalog.mutant: %+v\n", err)
 	}
 }
