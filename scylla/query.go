@@ -8,7 +8,7 @@ import (
 
 func SelectQuery(session *gocql.Session) {
 	log.Printf("Displaying Results:\n")
-	q := session.Query("SELECT first_name,last_name,address,picture_location FROM mutant_data")
+	q := session.Query("SELECT * FROM ws_prediction_no_invoice")
 	var firstName, lastName, address, pictureLocation string
 	it := q.Iter()
 	defer func() {
@@ -23,14 +23,7 @@ func SelectQuery(session *gocql.Session) {
 
 func InsertQuery(session *gocql.Session) {
 	log.Printf("Inserting Mike")
-	if err := session.Query("INSERT INTO mutant_data (first_name,last_name,address,picture_location) VALUES ('Mike','Tyson','1515 Main St', 'http://www.facebook.com/mtyson')").Exec(); err != nil {
-		log.Printf("select catalog.mutant %+v\n", err)
-	}
-}
-
-func DeleteQuery(session *gocql.Session) {
-	log.Printf("Deleting Mike")
-	if err := session.Query("DELETE FROM mutant_data WHERE first_name = 'Mike' and last_name = 'Tyson'").Exec(); err != nil {
+	if err := session.Query("INSERT INTO ws_prediction_no_invoice (user_id, json_prediction,) VALUES (123, 'coba')").Exec(); err != nil {
 		log.Printf("select catalog.mutant %+v\n", err)
 	}
 }
